@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bulma - Mood Tracker</title>
+    <link
+      rel="shortcut icon"
+      href="../images/fav_icon.png"
+      type="image/x-icon"
+    />
+    <!-- Bulma Version 0.9.0-->
+    <link
+      rel="stylesheet prefetch"
+      href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/7dc3015a44.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    
+    <section class="hero is-info">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Mood Tracker
+          </h1>
+          <h5 class="subtitle"></h5>
+        </div>
+      </div>
+      <div class="tabs is-boxed is-centered main-menu" id="nav" style="background-color: #ff9c19">
+        <ul>
+          <li data-target="pane-1" id="1">
+            <a>
+              <span class="icon is-small"><i class="fa fa-image"></i></span>
+              <span>Tracker</span>
+            </a>
+          </li>
+          <li data-target="pane-2" id="2" class="is-active">
+            <a>
+              <span class="icon is-small"><i class="fab fa-empire"></i></span>
+              <span>About Us</span>
+            </a>
+          </li>
+          <li data-target="pane-3" id="3">
+            <a>
+              <span class="icon is-small"
+                ><i class="fab fa-superpowers"></i
+              ></span>
+              <span>Music</span>
+            </a>
+          </li>
+        </ul>
+        
+      </div>
+      <!--Tab 1-->
+ 
+      <div class="tab-content">
+        <div class="tab-pane" id="pane-1">
+  
+          
+    <div class="buttons">
+      <button id ="addEntry" class="button is-primary is-fullwidth">Add Entry</button>
+  
+    </div>
+          
+<div id="modalElement" class=" modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add Entry</p>
+      <button class="delete" aria-label="close"> Add Entry</button>
+    </header>
+
+    <input id="dayInput" class="incorrect input is-primary is-large" type="text" name="language" placeholder="Enter the day...">
+    <p style="color:white">
+      How did you feel today?
+    </p>
+    <p class="buttons">
+       <button class="button" id="happy">
+    <span class="icon is-small">
+      <i class="far fa-smile-beam"></i>
+    </span>
+  </button>
+       <button class="button" id = "meh">
+    <span class="icon is-small">
+      <i class="far fa-meh"></i>
+    </span>
+  </button>
+       <button class="button" id="sad">
+    <span class="icon is-small">
+      <i class="far fa-frown"></i>
+    </span>
+  </button>
+    
+    </p>
+    <input id="bestPartOfDay" class="incorrect input is-primary is-large" type="text" placeholder="What was the best part of your day?" >
+    
+    <footer class="modal-card-foot">
+      <button class="button is-success save" id="save">Save changes</button>
+      <button class="button cancel"id="cancel">Cancel</button>
+    </footer>
+  </div>
+</div>
+          
+  
+          <section class="container">
+            <div class="columns features is-centered">
+              <div class="column is-2">
+                <div class="card is-shady monday">
+                  
+          
+                  <div class="card-content">
+                    <div class="content">
+                      <h4>Monday</h4>
+                      <p id="mbest">
+                        
+                      </p>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-2">
+                <div class="card is-shady tuesday">
+                  
+                  <div class="card-content">
+                    <div class="content">
+                      <h4>Tuesday</h4>
+                      <p id="tubest">
+                     
+                      </p>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-2">
+                <div class="card is-shady wednesday">
+                  
+                  <div class="card-content">
+                    <div class="content">
+                      <h4>Wednesday</h4>
+                      <p id="wbest"> 
+                        
+                        
+                      </p>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column is-2">
+                <div class="card is-shady thursday">
+                  
+                  <div class="card-content">
+                    <div class="content">
+                      <h4>Thursday</h4>
+                      <p id="thbest">
+                        
+                        
+                      </p>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column is-2">
+                <div class="card is-shady friday">
+                  
+                  <div class="card-content">
+                    <div class="content">
+                      <h4>Friday</h4>
+                      <p id="fbest">
+                     
+                        
+                      </p>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column is-2">
+                <div class="card is-shady saturday">
+                  
+                  <div class="card-content">
+                    <div class="content">
+                      <h4>Saturday</h4>
+                      <p id="sabest">
+                      
+                        
+                      </p>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column is-2">
+                <div class="card is-shady sunday">
+                  
+                  <div class="card-content">
+                    <div class="content">
+                      <h4>Sunday</h4>
+                      <p id="subest">
+                        
+                        
+                      </p>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+  
+            
+            </div>
+          
+          </section>
+        </div>
+        <div class="tab-pane" id="pane-3">
+          <div class="columns">
+            <div class="container">
+              <div class="columns">
+                <div class="column">
+                  <h1>
+                    Calming Music Playlists
+                  </h1>
+                  <iframe src="https://open.spotify.com/embed/album/0lhHBn9XBCA9ZJMRLzgXvf" width="100%" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                  
+                 
+                </div>
+                <div class="column">
+                  
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane" id="pane-4">
+          <div class="columns is-centered">
+            <div class="column is-three-quarters">
+              <div class="embed-container image">
+                <iframe
+                  src="https://player.vimeo.com/video/261794608"
+                  frameborder="0"
+                  webkitAllowFullScreen
+                  mozallowfullscreen
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane is-active" id="pane-2">
+          <div class="content">
+            <h1>About Us</h1>
+            <h5>
+              This website is a beta Mood Tracker and allows users to log various types of data about their daily wellbeing! Such data includes number of
+              hours of sleep they have recieved, their mood, and daily insights of their day. More features to come!
+        
+            </h5>
+            
+            <h1>How to Use?</h1>
+            
+            <h5>
+              Head to the Tracker tab above and get started!
+        
+            </h5>
+           
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="../js/bulma.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
