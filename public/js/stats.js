@@ -46,7 +46,7 @@ const handleStatsSubmit = () => {
   const statLabel = document.querySelector('#statLabel');
   const statDate = document.querySelector('#statDate');
   // 2. Format the data and write it to our database
-  firebase.database().ref(`currentNotes/users/${googleUser.uid}/Stats`).push({
+  firebase.database().ref(`${googleUser.uid}/Stats`).push({
     name: statName.value,
     description: statDescrip.value,
     label: statLabel.value,
