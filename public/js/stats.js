@@ -52,11 +52,4 @@ const handleStatsSubmit = () => {
     label: statLabel.value,
     date: statDate.value
   })
-  // 3. Clear the form so that we can write a new note
-  .then(() => {
-    statName.value = "";
-    statDescrip.value = "";
-    statLabel.value = "";
-    statDate.value = "";
-  });
 }
