@@ -11,3 +11,23 @@ window.onload = event => {
     }
   });
 };
+
+const handleStatsSubmit = () => {
+  // 1. Capture the form data
+  const statName = document.querySelector('#statName');
+  const statDescrip = document.querySelector('#statDescrip');
+  const statLabel = document.querySelector('#statLabel');
+  // 2. Format the data and write it to our database
+  firebase.database().ref(`currentNotes/users/${googleUser.uid}`).push({
+    name: statName.value,
+    description: statDescrip.value,
+    label: statLabel.value
+  })
+  // 3. Clear the form so that we can write a new note
+  .then(() => {
+    noteTitle.value = "";
+    noteText.value = "";
+    noteLabel.value = "";
+  });
+}
+
