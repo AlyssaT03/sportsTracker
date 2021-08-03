@@ -113,15 +113,13 @@
        value="2021-08-01" min="2021-08-01" max="2021-12-31">
 
     <input id="description" class="incorrect input is-primary is-large" type="text" placeholder="Description ... " >
-        <div id="eventType" class="select is-large">
-        <select>
-            <option>Select event type</option>
-            <option>Practice</option>
-            <option>Tournament</option>
-            <option>Other</option>
-        </select>
+        <div class="select is-large">
+            <select id="eventType">
+                <option value="practice">Practice</option>
+                <option value="tournament">Tournament</option>
+                <option value="other">Other</option>
+            </select>
         </div>
-
 
       <input id="sport" class="incorrect input is-primary is-large" type="text" placeholder="Sport... " >
     

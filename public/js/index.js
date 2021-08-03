@@ -1,4 +1,5 @@
 let googleUser;
+let eventType;
 
 window.onload = event => {
   // Use this to retain user state between html pages.
@@ -45,17 +46,20 @@ function getData(){
      var name = document.querySelector("#eventName").value;
     var date = document.querySelector("#date").value;
     var description = document.querySelector("#description").value; 
-    var eventType = document.querySelector("#eventType").value; 
     var sport = document.querySelector("#sport").value; 
+    var eventType = document.querySelector("#eventType");
 
-firebase.database().ref(`${googleUser.uid}/Events`).push({
-    Name: name,
-    Date: date,
-    "Event Type":eventType,
-    "Sport":sport,
-    Description: description,
-
-  })
+    firebase.database().ref(`${googleUser.uid}/Events`).push({
+        Name: name,
+        Date: date,
+        "Event Type": eventType.value,
+        "Sport":sport,
+        Description: description,
+    })
 
 }
 
+  function changeEventType(selectButton){
+    eventType = selectButton.target.value;
+    console.log("Event type changed");
+  }
