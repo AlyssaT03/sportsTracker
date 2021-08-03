@@ -32,11 +32,30 @@ console.log(saveButton);
 saveButton.addEventListener("click", e => {
   modal.classList.remove("is-active");
   console.log("saved");
- 
+ getData()
+
 })
 
 cancelButton.addEventListener("click", e => {
   modal.classList.remove("is-active");
   console.log("canceled");
 })
+
+function getData(){
+     var name = document.querySelector("#eventName").value;
+    var date = document.querySelector("#date").value;
+    var description = document.querySelector("#description").value; 
+    var eventType = document.querySelector("#eventType").value; 
+    var sport = document.querySelector("#sport").value; 
+
+firebase.database().ref(`${googleUser.uid}/Events`).push({
+    Name: name,
+    Date: date,
+    "Event Type":eventType,
+    "Sport":sport,
+    Description: description,
+
+  })
+
+}
 
