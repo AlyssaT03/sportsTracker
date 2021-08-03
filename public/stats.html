@@ -90,6 +90,28 @@
                Take a look at your stats below or press "Add Stats"!
             </h5>
          </div>
+         <div class="content">
+            <div class="buttons">
+               <button id ="addStat" class="button is-primary is-halfwidth">Add Stat</button>
+            </div>
+            <div id="modalElement" class=" modal">
+               <div class="modal-background"></div>
+               <div class="modal-card">
+                  <header class="modal-card-head">
+                     <p class="modal-card-title">Add Event</p>
+                     <button class="delete" aria-label="close">Delete Event</button>
+                  </header>
+                  <input id="statName" class="incorrect input is-primary is-large" type="text" name="statName" placeholder="Name of stat...">
+                  <input id="statDescrip" class="incorrect input is-primary is-large" type="text" name="statName" placeholder="Description of Stat">
+                  <input id="statLabel" class="incorrect input is-primary is-large" type="text" placeholder="Input what sport this stat is from." >
+                  <input id ="statDate" type="date" class="incorrect input is-primary is-large"  name="event-date"
+       value="2021-08-01" min="2021-08-01" max="2021-12-31">
+                  <footer class="modal-card-foot">
+                     <button class="button is-success save" id="save">Save changes</button>
+                     <button class="button cancel"id="cancel">Cancel</button>
+                  </footer>
+               </div>
+            </div>
          </div>
       </section>
       <script src="js/stats.js"></script>
