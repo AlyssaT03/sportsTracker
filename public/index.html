@@ -91,30 +91,41 @@
                Click the "Add Event" button below to get started!
             </h5>
          </div>
-         <div class="content">
-            <div class="buttons">
-               <button id ="addEntry" class="button is-primary is-halfwidth">Add Event</button>
-            </div>
-            <div id="modalElement" class=" modal">
-               <div class="modal-background"></div>
-               <div class="modal-card">
-                  <header class="modal-card-head">
-                     <p class="modal-card-title">Add Event</p>
-                     <button class="delete" aria-label="close"> Add Event</button>
-                  </header>
-                  <input id="dayInput" class="incorrect input is-primary is-large" type="text" name="language" placeholder="Name of Event...">
-                  <input type="date" class="incorrect input is-primary is-large"  name="trip-start"
-                     value="2021-08-01" min="2021-08-01" max="2021-12-31">
-                  <input id="bestPartOfDay" class="incorrect input is-primary is-large" type="text" placeholder="Description ... " >
-                  <footer class="modal-card-foot">
-                     <button class="button is-success save" id="save">Save changes</button>
-                     <button class="button cancel"id="cancel">Cancel</button>
-                  </footer>
+<div class="content">
+                  
+
+ <div class="buttons">
+      <button id ="addEntry" class="button is-primary is-halfwidth">Add Event</button>
+    </div>
+
+<div id="modalElement" class=" modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add Event</p>
+      <button class="delete" aria-label="close"> Add Event</button>
+    </header>
+
+    <input id="eventName" class="incorrect input is-primary is-large" type="text" name="language" placeholder="Name of Event...">
+    
+
+<input id ="date" type="date" class="incorrect input is-primary is-large"  name="event-date"
+       value="2021-08-01" min="2021-08-01" max="2021-12-31">
+
+    
+    <input id="description" class="incorrect input is-primary is-large" type="text" placeholder="Description ... " >
+    
+    <footer class="modal-card-foot">
+      <button class="button is-success save" id="save">Save changes</button>
+      <button class="button cancel"id="cancel">Cancel</button>
+    </footer>
+  </div>
+</div>
                </div>
             </div>
          </div>
          </div>
       </section>
-      <script src="js/script.js"></script>
+      <script src="js/index.js"></script>
    </body>
 </html>
