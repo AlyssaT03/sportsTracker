@@ -85,16 +85,48 @@
       </nav>
     </section>
          </div>
-               <div class="content">
-                  <h1>About Us</h1>
-                  <h5>
-                     This website is a beta Sports Tracker and allows users to log various types of data about their sports routine! Such data includes your
-                     personal stats, your regular practices, and your tournament dates. More features to come!
-                  </h5>
-                  <h1>How to Use?</h1>
-                  <h5>
-                     Click the "Add Event" button below to get started!
-                  </h5>
+<div class="content">
+                  
+
+ <div class="buttons">
+      <button id ="addEntry" class="button is-primary is-halfwidth">Add Event</button>
+    </div>
+
+<div id="modalElement" class=" modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add Event</p>
+      <button class="delete" aria-label="close"> Add Event</button>
+    </header>
+
+    <input id="dayInput" class="incorrect input is-primary is-large" type="text" name="language" placeholder="Name of Event...">
+    
+
+<input type="date" class="incorrect input is-primary is-large"  name="trip-start"
+       value="2021-08-01 min="2021-08-01" max="2021-12-31">
+
+    
+    <input id="bestPartOfDay" class="incorrect input is-primary is-large" type="text" placeholder="Description ... " >
+    
+    <footer class="modal-card-foot">
+      <button class="button is-success save" id="save">Save changes</button>
+      <button class="button cancel"id="cancel">Cancel</button>
+    </footer>
+  </div>
+</div>
+          
+
+
+
+
+
+
+
+
+
+
+
                </div>
          </div>
       </section>
