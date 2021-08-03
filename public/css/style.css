@@ -4,17 +4,17 @@
 body {
   font-family: 'Lora', serif;
 }
-.tabs {
+/* .tabs {
 margin-bottom: -1px !important;
 position: relative;
-}
-.tab-content {
+} */
+.content {
 padding: 60px;
 top: 197px;
 color: #000;
 background-color: white;
 }
-.tab-pane {
+/* .tab-pane {
 display: none;
 }
 .tab-pane.is-active {
@@ -23,16 +23,16 @@ width: 50%;
 position: relative;
 left: 50%;
 transform: translateX(-50%);
-}
+} */
 .is-active {
 display: initial;
 }
 
-.cent{
+/* .cent{
 display: block;
 margin: 10px auto;
 padding: 5px;
-border: 1px solid #ccc}
+border: 1px solid #ccc} */
 
 .video
 {display: block;
@@ -54,43 +54,6 @@ margin: 0 auto;}
 	left: 0;
 	width: 100%;
 	height: 100%;
-}
-
-.monday {
-  background-color: white;
-}
-
-.tuesday{
-  background-color: white;
-}
-
-.wednesday {
-  background-color: white;
-}
-
-.thursday {
-  background-color: white;
-}
-.friday {
-  background-color: white;
-}
-.saturday {
-  background-color: white;
-}
-.sunday {
-  background-color: white;
-}
-
-.happy {
-  background-color: #b8f5b9
-}
-
-.meh {
-  background-color: #fffcab
-}
-
-.sad {
-  background-color: #abeaff
 }
 
 .hero-body {
