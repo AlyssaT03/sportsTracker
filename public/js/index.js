@@ -46,7 +46,7 @@ function getData(){
     var date = document.querySelector("#date").value;
     var description = document.querySelector("#description").value; 
     var sport = document.querySelector("#sport").value; 
-    var eventType = document.querySelector("#eventType");
+    var eventType = document.querySelector("#eventType").value;
 
 firebase.database().ref(`${googleUser.uid}/Events`).push({
     Name: name,

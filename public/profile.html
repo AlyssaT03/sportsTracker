@@ -65,6 +65,8 @@
          </div>
          <div class="content">
     <div class="card">
+        <button class="button is-active" id="addImage">Select display image...</button>
+        <img id="userImg" src="">
         <header class="card-header">
              <p class="card-header-title" id="username">USERNAME</p>
            </header>
@@ -72,8 +74,22 @@
                <p id="sports">My sports are...</p>
            </div>
     </div>
+    <div id="modalElement" class=" modal">
+               <div class="modal-background"></div>
+               <div class="modal-card">
+                  <header class="modal-card-head">
+                     <p class="modal-card-title">Add Image</p>
+                     <button class="delete" aria-label="close">Delete</button>
+                  </header>
+                  <input id="addURL" class="incorrect input is-primary is-large" type="text" name="addUrl" placeholder="Add image url...">
+                  <footer class="modal-card-foot">
+                     <button class="button is-success save" id="save">Save changes</button>
+                     <button class="button cancel"id="cancel">Cancel</button>
+                  </footer>
+               </div>
+            </div>
     </div>
 </section>
-      <script src="js/test.js"></script>
+      <script src="js/profile.js"></script>
    </body>
 </html>
