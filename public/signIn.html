@@ -37,51 +37,140 @@
       <script defer src="/__/firebase/init.js?useEmulator=true"></script>
    </head>
    <body>
-      <section class="hero is-info">
-         <div class="hero-body">
-            <div class="container">
-               <h1 class="title">
-                  Sports Tracker
-               </h1>
-               <h5 class="subtitle"></h5>
+      <section class="hero is-medium">
+    <div class="hero-head">
+      <div class="container">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item is-active">
+                SPORTS TRACKER
+              </a>
             </div>
-            <section id="navbar">
-               <nav class="navbar" role="navigation" aria-label="main navigation">
-                  <div id="navbarBasicExample" class="navbar-menu">
-                     <div class="navbar-start">
-                        <a class="navbar-item" href="index.html">
-                        Home
-                        </a>
-                        <!-- <a class="navbar-item" href="video.html">
-                           Video
-                           </a> -->
-                     </div>
+
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons slanted">
+                  <a class="button is-success" onclick = "signIn()">
+                    Log in
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <img src="https://cdn.glitch.com/c8f935e6-fce8-45de-b123-464667117a2f%2Fthumbnails%2FDayflow%20-%20Riding.png?1628115363775" width="150" height="40">
+        <h2 class="title">
+          Welcome to Sports Tracker
+        </h2>
+      </div>
+    </div>
+  </section>
+  <section class="blog-posts">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-10 is-offset-1">
+          <div class="columns featured-post is-multiline">
+            <div class="column is-12 post">
+              <article class="columns featured">
+                <div class="column is-5 post-img ">
+                  <img src="https://cdn.glitch.com/c8f935e6-fce8-45de-b123-464667117a2f%2Fthumbnails%2FHands%20-%20Calendar.png?1628115508998" alt="">
+                </div>
+                <div class="column is-5 featured-content va">
+                  <div>
+                    <h3 class="heading post-category">Category Name</h3>
+                    <h1 class="title post-title">Blog Posts Template</h1>
+                    <p class="post-excerpt">This template is based off of the official default blog template created by the fine folks over at <a href="https://ghost.io">Ghost</a>. If you are looking for a fully featured blog platform, I highly recommend checking them out!</p>
+                    <br>
+                    <a href="#" class="button is-primary">Read More</a>
                   </div>
-               </nav>
-            </section>
-         </div>
-         <div class="content">
-            <h1>About Us</h1>
-            <h5>
-               This website is a beta Sports Tracker and allows users to log various types of data about their sports routine! Such data includes your
-               personal stats, your regular practices, and your tournament dates. More features to come!
-            </h5>
-            <h1>How to Use?</h1>
-            <h3>
-               Log in to view your personal Sports Tracker app.
-            </h3>
-            <br/>
-            <p class="has-text-centered">
-               <a
-                  class="button is-medium is-info is-outlined"
-                  onclick="signIn()"
-                  >
-               Sign In
-               </a>
-            </p>
-         </div>
-         </div>
-      </section>
+
+                </div>
+              </article>
+            </div>
+          </div>
+          <hr>
+          <div class="columns is-multiline">
+            <div class="column post is-6">
+              <article class="columns is-multiline">
+                <div class="column is-12 post-img">
+                  <img src="https://cdn.glitch.com/c8f935e6-fce8-45de-b123-464667117a2f%2Fthumbnails%2FBrazuca%20-%20Chart.png?1628115587093" alt="Featured Image">
+                </div>
+                <div class="column is-12 featured-content ">
+                  <h3 class="heading post-category">Category Name</h3>
+                  <h1 class="title post-title">Slightly Longer Blog Post Title</h1>
+                  <p class="post-excerpt">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus ratione harum eaque, animi nulla tempore quis, quam voluptatum.</p>
+                  <br>
+                  <a href="#" class="button is-primary">Read More</a>
+                </div>
+              </article>
+            </div>
+            <div class="column post is-6">
+              <article class="columns is-multiline">
+                <div class="column is-12 post-img">
+                  <img src="https://cdn.glitch.com/c8f935e6-fce8-45de-b123-464667117a2f%2Fthumbnails%2Fundraw_working_out_6psf-removebg-preview.png?1628115884739" alt="Featured Image">
+                </div>
+                <div class="column is-12 featured-content ">
+                  <h3 class="heading post-category">Category Name</h3>
+                  <h1 class="title post-title">Slightly Longer Blog Post Title</h1>
+                  <p class="post-excerpt">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus ratione harum eaque, animi nulla tempore quis, quam voluptatum.</p>
+                  <br>
+                  <a href="#" class="button is-primary">Read More</a>
+                </div>
+              </article>
+            </div>
+            <div class="column post is-4">
+              <article class="columns is-multiline">
+                <div class="column is-12 post-img">
+                  <img src="https://cdn.glitch.com/c8f935e6-fce8-45de-b123-464667117a2f%2Fthumbnails%2Fundraw_basketball_agx4-removebg-preview.png?1628115945245" alt="Featured Image">
+                </div>
+                <div class="column is-12 featured-content ">
+                  <h3 class="heading post-category">Category Name</h3>
+                  <h1 class="title post-title">Slightly Longer Blog Post Title</h1>
+                  <p class="post-excerpt">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus ratione harum eaque, animi nulla tempore quis, quam voluptatum.</p>
+                  <br>
+                  <a href="#" class="button is-primary">Read More</a>
+                </div>
+              </article>
+            </div>
+            <div class="column post is-4">
+              <article class="columns is-multiline">
+                <div class="column is-12 post-img">
+                  <img src="https://cdn.glitch.com/c8f935e6-fce8-45de-b123-464667117a2f%2Fthumbnails%2Fpngegg%20(2).png?1628116030466" alt="Featured Image">
+                </div>
+                <div class="column is-12 featured-content ">
+                  <h3 class="heading post-category">Category Name</h3>
+                  <h1 class="title post-title">Slightly Longer Blog Post Title</h1>
+                  <p class="post-excerpt">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus ratione harum eaque, animi nulla tempore quis, quam voluptatum.</p>
+                  <br>
+                  <a href="#" class="button is-primary">Read More</a>
+                </div>
+              </article>
+            </div>
+            <div class="column post is-4">
+              <article class="columns is-multiline">
+                <div class="column is-12 post-img">
+                  <img src="https://cdn.glitch.com/c8f935e6-fce8-45de-b123-464667117a2f%2Fthumbnails%2Fpngegg%20(1).png?1628116126874" alt="Featured Image">
+                </div>
+                <div class="column is-12 featured-content ">
+                  <h3 class="heading post-category">Category Name</h3>
+                  <h1 class="title post-title">Slightly Longer Blog Post Title</h1>
+                  <p class="post-excerpt">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus ratione harum eaque, animi nulla tempore quis, quam voluptatum.</p>
+                  <br>
+                  <a href="#" class="button is-primary">Read More</a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </section>
       <script src="js/signIn.js"></script>
    </body>
 </html>
