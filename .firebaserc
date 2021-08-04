@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "sports-tracker-eaef2",
-    "app": "sports-tracker-eaef2"
+    "app": "sports-tracker-eaef2",
+    "staging": "sports-tracker-eaef2"
   }
 }
