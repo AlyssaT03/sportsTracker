@@ -43,30 +43,10 @@
                <h1 class="title">
                   Sports Tracker
                </h1>
-               <h5 class="subtitle"></h5>
+               <h5 class="subtitle">Keep track of your runs on the run!</h5>
             </div>
             <section id="navbar">
                <nav class="navbar" role="navigation" aria-label="main navigation">
-                  <div class="navbar-brand">
-                     <a class="navbar-item" href="https://www.pokemon.com/us/">
-                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
-                        width="75"
-                        height="75"
-                        />
-                     </a>
-                     <a
-                        role="button"
-                        class="navbar-burger"
-                        aria-label="menu"
-                        aria-expanded="false"
-                        data-target="navbarBasicExample"
-                        >
-                     <span aria-hidden="true"></span>
-                     <span aria-hidden="true"></span>
-                     <span aria-hidden="true"></span>
-                     </a>
-                  </div>
                   <div id="navbarBasicExample" class="navbar-menu">
                      <div class="navbar-start">
                         <a class="navbar-item" href="index.html">
@@ -90,13 +70,11 @@
             <h5>
                Click the "Add Event" button below to get started!
             </h5>
+             <div class="buttons">
+                <button id ="addEntry" class="button is-primary is-halfwidth">Add Event</button>
+            </div>
          </div>
 <div class="content">
-                  
-
- <div class="buttons">
-      <button id ="addEntry" class="button is-primary is-halfwidth">Add Event</button>
-    </div>
 
 <div id="modalElement" class=" modal">
   <div class="modal-background"></div>
@@ -113,8 +91,13 @@
        value="2021-08-01" min="2021-08-01" max="2021-12-31">
 
     <input id="description" class="incorrect input is-primary is-large" type="text" placeholder="Description ... " >
-
-     <input id="eventType" class="incorrect input is-primary is-large" type="text" placeholder="Event Type ... " >
+        <div class="select is-large">
+            <select id="eventType">
+                <option value="practice">Practice</option>
+                <option value="tournament">Tournament</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
 
       <input id="sport" class="incorrect input is-primary is-large" type="text" placeholder="Sport... " >
     

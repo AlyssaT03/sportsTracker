@@ -1,4 +1,5 @@
 let googleUser;
+let eventType;
 
 window.onload = event => {
   // Use this to retain user state between html pages.
@@ -49,8 +50,8 @@ function getData(){
      var name = document.querySelector("#eventName").value;
     var date = document.querySelector("#date").value;
     var description = document.querySelector("#description").value; 
-    var eventType = document.querySelector("#eventType").value; 
     var sport = document.querySelector("#sport").value; 
+    var eventType = document.querySelector("#eventType");
 
 firebase.database().ref(`${googleUser.uid}/Events`).push({
     Name: name,
@@ -98,6 +99,7 @@ function deleteNote(eventItem)
  
 }
 
+<<<<<<< HEAD
 
 
 
@@ -136,3 +138,9 @@ const createCard = (event, eventItem) => {
          </div>
        </div> `;
 };
+=======
+  function changeEventType(selectButton){
+    eventType = selectButton.target.value;
+    console.log("Event type changed");
+  }
+>>>>>>> 08173dc442c05d1e4947535fe1bf081168755db4
