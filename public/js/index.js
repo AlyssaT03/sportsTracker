@@ -7,16 +7,11 @@ window.onload = event => {
     if (user) {
       console.log("Logged in as: " + user.displayName);
       googleUser = user;
+        getNotes();
     } else {
       window.location = "signIn.html"; // If not logged in, navigate back to login page.
     }
   });
-
-
-   getNotes();
-
-
-
 };
 
 const addEntry = document.querySelector("#addEntry");
@@ -51,7 +46,7 @@ function getData(){
     var date = document.querySelector("#date").value;
     var description = document.querySelector("#description").value; 
     var sport = document.querySelector("#sport").value; 
-    var eventType = document.querySelector("#eventType");
+    var eventType = document.querySelector("#eventType").value;
 
 firebase.database().ref(`${googleUser.uid}/Events`).push({
     Name: name,
@@ -137,3 +132,7 @@ const createCard = (event, eventItem) => {
          </div>
        </div> `;
 };
+  function changeEventType(selectButton){
+    eventType = selectButton.target.value;
+    console.log("Event type changed");
+  }
