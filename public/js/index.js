@@ -7,14 +7,21 @@ window.onload = event => {
     if (user) {
       console.log("Logged in as: " + user.displayName);
       googleUser = user;
+<<<<<<< HEAD
       getNotes();
+=======
+        getNotes();
+>>>>>>> ca359b7cf3917cc579df296a943674332b76b5e2
     } else {
       window.location = "signIn.html"; // If not logged in, navigate back to login page.
     }
   });
+<<<<<<< HEAD
 
 
    getNotes();
+=======
+>>>>>>> ca359b7cf3917cc579df296a943674332b76b5e2
 };
 
 const addEntry = document.querySelector("#addEntry");
@@ -49,7 +56,7 @@ function getData(){
     var date = document.querySelector("#date").value;
     var description = document.querySelector("#description").value; 
     var sport = document.querySelector("#sport").value; 
-    var eventType = document.querySelector("#eventType");
+    var eventType = document.querySelector("#eventType").value;
 
 firebase.database().ref(`${googleUser.uid}/Events`).push({
     Name: name,
