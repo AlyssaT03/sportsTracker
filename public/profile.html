@@ -37,7 +37,7 @@
       <script defer src="/__/firebase/init.js?useEmulator=true"></script>
    </head>
    <body>
-      <section class="hero is-info">
+       <section class="hero is-info">
          <div class="hero-body">
             <div class="container">
                <h1 class="title">
@@ -64,39 +64,16 @@
             </section>
          </div>
          <div class="content">
-            <h1>Stats</h1>
-            <h5>
-               Here you can view your stats that you've entered before, or add new ones!
-            </h5>
-            <h1>How to Use?</h1>
-            <h5>
-               Take a look at your stats below or press "Add Stats"!
-            </h5>
-         </div>
-         <div class="content">
-            <div class="buttons">
-               <button id ="addStat" class="button is-primary is-halfwidth">Add Stat</button>
-            </div>
-            <div id="modalElement" class=" modal">
-               <div class="modal-background"></div>
-               <div class="modal-card">
-                  <header class="modal-card-head">
-                     <p class="modal-card-title">Add Event</p>
-                     <button class="delete" aria-label="close">Delete Event</button>
-                  </header>
-                  <input id="statName" class="incorrect input is-primary is-large" type="text" name="statName" placeholder="Name of stat...">
-                  <input id="statDescrip" class="incorrect input is-primary is-large" type="text" name="statName" placeholder="Description of Stat">
-                  <input id="statLabel" class="incorrect input is-primary is-large" type="text" placeholder="Input what sport this stat is from." >
-                  <input id ="statDate" type="date" class="incorrect input is-primary is-large"  name="event-date"
-       value="2021-08-01" min="2021-08-01" max="2021-12-31">
-                  <footer class="modal-card-foot">
-                     <button class="button is-success save" id="save">Save changes</button>
-                     <button class="button cancel"id="cancel">Cancel</button>
-                  </footer>
-               </div>
-            </div>
-         </div>
-      </section>
-      <script src="js/stats.js"></script>
+    <div class="card">
+        <header class="card-header">
+             <p class="card-header-title" id="username">USERNAME</p>
+           </header>
+           <div class="card-content">
+               <p id="sports">My sports are...</p>
+           </div>
+    </div>
+    </div>
+</section>
+      <script src="js/test.js"></script>
    </body>
 </html>

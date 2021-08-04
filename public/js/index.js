@@ -7,16 +7,11 @@ window.onload = event => {
     if (user) {
       console.log("Logged in as: " + user.displayName);
       googleUser = user;
+        getNotes();
     } else {
       window.location = "signIn.html"; // If not logged in, navigate back to login page.
     }
   });
-
-
-   getNotes();
-
-
-
 };
 
 const addEntry = document.querySelector("#addEntry");
