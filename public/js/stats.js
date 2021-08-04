@@ -6,6 +6,7 @@ window.onload = event => {
     if (user) {
       console.log("Logged in as: " + user.displayName);
       googleUser = user;
+      getStats();
     } else {
       window.location = "signIn.html"; // If not logged in, navigate back to login page.
     }
@@ -18,8 +19,6 @@ const dropDown = document.querySelector(".dropdown-menu");
 
 addEntry.addEventListener("click", (e) => {
  modal.classList.add("is-active");
- 
- 
 });
  
 const saveButton = document.querySelector("#save");
@@ -31,7 +30,6 @@ saveButton.addEventListener("click", e => {
   modal.classList.remove("is-active");
   console.log("saved");
   handleStatsSubmit();
- 
 })
 
 cancelButton.addEventListener("click", e => {
@@ -47,9 +45,71 @@ const handleStatsSubmit = () => {
   const statDate = document.querySelector('#statDate');
   // 2. Format the data and write it to our database
   firebase.database().ref(`${googleUser.uid}/Stats`).push({
-    name: statName.value,
-    description: statDescrip.value,
-    label: statLabel.value,
-    date: statDate.value
+    Name: statName.value,
+    Description: statDescrip.value,
+    Label: statLabel.value,
+    Date: statDate.value
   })
+  getStats();
 }
+
+const getStats = userId => {
+    const eventsRef = firebase.database().ref(`${googleUser.uid}/Stats`)
+    eventsRef.orderByChild("title").on("value", snapshot => {
+        renderDataAsHtml(snapshot);
+    });
+};
+
+//Given a list of notes, render them in HTML
+const renderDataAsHtml = (data) => {
+    let statList = [];
+     data.forEach((child) => {
+        const childObj = child.val();
+        childObj.id = child.key;
+        statList.push(childObj)
+     })
+     console.log(statList);
+    const sortedData = statList.sort(function(a,b){
+        d1 = new Date(a.Date).getTime();
+        d2 = new Date(b.Date).getTime();
+        return d1 - d2});
+        console.log(sortedData);
+    let cards = "";
+    sortedData.forEach((child) => {
+        const stat = child;
+        const statItem = child.id;
+        console.log(createCard(stat, statItem));
+        cards += createCard(stat, statItem);
+    })
+    document.querySelector("#app").innerHTML = cards;
+};
+
+function deleteStat(statItem) {
+    firebase.database().ref(`${googleUser.uid}/Stats/${statItem}`).remove();
+}
+
+// Return a note object converted into an HTML card
+const createCard = (stat, statItem) => {
+    const colors = ["has-background-primary-light", "has-background-link-light", "has-background-info-light", "has-background-success-light", "has-background-warning-light", "has-background-danger-light", "has-background-primary-dark", "has-background-link-dark", "has-background-info-dark", "has-background-success-dark", "has-background-warning-dark", "has-background-danger-dark"]
+    var bk_color = colors[Math.floor(Math.random() * colors.length)]
+    return `
+         <div class="column is-one-quarter">
+         <div class="card ${bk_color}">
+           <header class="card-header">
+             <p class="card-header-title">${stat.Name}</p>
+             <p class="card-header-title">${stat.Date}</p>
+           
+           </header>
+           <div class="card-content">
+             <div class="content">${stat.Description}</div>
+             <button class="button" id="${statItem}" onclick="deleteStat(this.id)"> Delete </button>
+            
+           <footer class="card-footer ${bk_color}">
+           
+             <p class="card-footer-title">${stat.Label}  </p>
+
+           </footer>
+           </div>
+         </div>
+       </div> `;
+};

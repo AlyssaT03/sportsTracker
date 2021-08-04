@@ -1,5 +1,4 @@
 let googleUser;
-let eventType;
 
 window.onload = event => {
     // Use this to retain user state between html pages.
@@ -20,8 +19,6 @@ const dropDown = document.querySelector(".dropdown-menu");
 
 addEntry.addEventListener("click", (e) => {
     modal.classList.add("is-active");
-
-
 });
 
 const saveButton = document.querySelector("#save");
@@ -32,8 +29,7 @@ console.log(saveButton);
 saveButton.addEventListener("click", e => {
     modal.classList.remove("is-active");
     console.log("saved");
-    getData()
-
+    getData();
 })
 
 cancelButton.addEventListener("click", e => {
@@ -54,7 +50,6 @@ function getData() {
         "EventType": eventType,
         "Sport": sport,
         Description: description,
-
     })
     getNotes();
 }
