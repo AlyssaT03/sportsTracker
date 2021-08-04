@@ -99,7 +99,6 @@ function deleteNote(eventItem)
  
 }
 
-<<<<<<< HEAD
 
 
 
@@ -138,9 +137,7 @@ const createCard = (event, eventItem) => {
          </div>
        </div> `;
 };
-=======
   function changeEventType(selectButton){
     eventType = selectButton.target.value;
     console.log("Event type changed");
   }
->>>>>>> 08173dc442c05d1e4947535fe1bf081168755db4
