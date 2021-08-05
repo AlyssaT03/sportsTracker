@@ -3,7 +3,9 @@
    <head>
       <meta charset="UTF-8" />
       <title>Sports Tracker</title>
-      <link
+     
+
+  <link
          rel="shortcut icon"
          href="../images/fav_icon.png"
          type="image/x-icon"
@@ -35,6 +37,11 @@
          to avoid connecting the SDK to running emulators.
          -->
       <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+      <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+
+
+
    </head>
    <body>
        <section class="hero is-info">
@@ -63,45 +70,30 @@
                         </a>
                      </div>
                   </div>
-                  <div class="navbar-end">
-              <div class="navbar-item">
-                <div class="buttons slanted">
-                  <a class="button is-success" onclick="googleSignout()">
-                    Log Out
-                  </a>
-                </div>
-              </div>
-            </div>
                </nav>
             </section>
          </div>
-         <div class="content">
-    <div class="card">
-        <button class="button is-active" id="addImage">Select display image...</button>
-        <img id="userImg" src="">
-        <header class="card-header">
-             <p class="card-header-title" id="username">USERNAME</p>
-           </header>
-           <div class="card-content">
-               <p id="sports">My sports are...</p>
-           </div>
+   
+<div>
+
+<header>
+      <h2>RealTime Chat</h2>
+    </header>
+
+    <div id="chat">
+      <!-- messages will display here -->
+      <ul id="messages"></ul>
+
+      <!-- form to send message -->
+      <form id="message-form">
+        <input id="message-input" type="text" />
+        <button id="message-btn" type="submit">Send</button>
+      </form>
     </div>
-    <div id="modalElement" class=" modal">
-               <div class="modal-background"></div>
-               <div class="modal-card">
-                  <header class="modal-card-head">
-                     <p class="modal-card-title">Add Image</p>
-                     <button class="delete" aria-label="close">Delete</button>
-                  </header>
-                  <input id="addURL" class="incorrect input is-primary is-large" type="text" name="addUrl" placeholder="Add image url...">
-                  <footer class="modal-card-foot">
-                     <button class="button is-success save" id="save">Save changes</button>
-                     <button class="button cancel"id="cancel">Cancel</button>
-                  </footer>
-               </div>
-            </div>
-    </div>
-</section>
-      <script src="js/profile.js"></script>
-   </body>
+
+</div>
+
+    </body>
+
+    <script src="js/chat.js"></script>
 </html>
