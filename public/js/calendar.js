@@ -16,6 +16,17 @@ window.onload = event => {
     });
 };
 
+function googleSignout() {
+   firebase.auth().signOut()
+	
+   .then(function() {
+      console.log('Signout Succesfull')
+      window.location = 'signIn.html'
+   }, function(error) {
+      console.log('Signout Failed')  
+   });
+}
+
 const addEntry = document.querySelector("#addEntry");
 const modal = document.querySelector("#modalElement");
 const dropDown = document.querySelector(".dropdown-menu");
@@ -26,8 +37,6 @@ addEntry.addEventListener("click", (e) => {
 
 const saveButton = document.querySelector("#save");
 const cancelButton = document.querySelector("#cancel");
-
-console.log(saveButton);
 
 saveButton.addEventListener("click", e => {
     modal.classList.remove("is-active");
@@ -145,6 +154,7 @@ const renderDataAsHtml = (data) => {
 
 function deleteEvent(eventItem) {
     firebase.database().ref(`${googleUser.uid}/Events/${eventItem}`).remove();
+    setCalendar();
 }
 
 function editEvent(eventCard, eventItem){
