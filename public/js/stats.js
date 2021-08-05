@@ -1,4 +1,6 @@
 let googleUser;
+var editing = false;
+let statData;
 
 window.onload = event => {
   // Use this to retain user state between html pages.
@@ -44,12 +46,30 @@ const handleStatsSubmit = () => {
   const statLabel = document.querySelector('#statLabel');
   const statDate = document.querySelector('#statDate');
   // 2. Format the data and write it to our database
-  firebase.database().ref(`${googleUser.uid}/Stats`).push({
-    Name: statName.value,
-    Description: statDescrip.value,
-    Label: statLabel.value,
-    Date: statDate.value
-  })
+  if(editing){
+    editingCard = document.getElementsByClassName("is-editing")[0];
+    console.log(editingCard);
+    console.log(editingCard.classList);
+    editingCard.classList.remove("is-editing");
+
+    statId = editingCard.id;
+
+    const editUpdate = {};
+    editUpdate[googleUser.uid + '/Stats/' + statId + "/Name"] = statName.value;
+    editUpdate[googleUser.uid + '/Stats/' + statId + "/Description"] = statDescrip.value;
+    editUpdate[googleUser.uid + '/Stats/' + statId + "/Label"] = statLabel.value;
+    editUpdate[googleUser.uid + '/Stats/' + statId + "/Date"] = statDate.value;
+
+    firebase.database().ref().update(editUpdate);
+    editing = false;
+  }else{
+      firebase.database().ref(`${googleUser.uid}/Stats`).push({
+        Name: statName.value,
+        Description: statDescrip.value,
+        Label: statLabel.value,
+        Date: statDate.value
+    })
+  }
   getStats();
 }
 
@@ -62,8 +82,10 @@ const getStats = userId => {
 
 //Given a list of notes, render them in HTML
 const renderDataAsHtml = (data) => {
-    let statList = [];
-     data.forEach((child) => {
+    statData = data.val();
+    console.log(statData);
+    let statList = []; 
+    data.forEach((child) => {
         const childObj = child.val();
         childObj.id = child.key;
         statList.push(childObj)
@@ -88,6 +110,19 @@ function deleteStat(statItem) {
     firebase.database().ref(`${googleUser.uid}/Stats/${statItem}`).remove();
 }
 
+function editStat(statCard, statItem){
+    editing = true;
+    statCard.classList.add("is-editing");
+    modal.classList.add("is-active");
+
+    console.log(statItem);
+    console.log(statData[statItem]);
+    document.querySelector('#statName').value = statData[statItem].Name;
+    document.querySelector('#statDescrip').value = statData[statItem].Description;
+    document.querySelector('#statLabel').value = statData[statItem].Label;
+    document.querySelector('#statDate').value = statData[statItem].Date;
+}
+
 // Return a note object converted into an HTML card
 const createCard = (stat, statItem) => {
     const colors = ["has-background-primary-light", "has-background-link-light", "has-background-info-light", "has-background-success-light", "has-background-warning-light", "has-background-danger-light", "has-background-primary-dark", "has-background-link-dark", "has-background-info-dark", "has-background-success-dark", "has-background-warning-dark", "has-background-danger-dark"]
@@ -103,7 +138,7 @@ const createCard = (stat, statItem) => {
            <div class="card-content">
              <div class="content">${stat.Description}</div>
              <button class="button" id="${statItem}" onclick="deleteStat(this.id)"> Delete </button>
-            
+            <button class="button" id="${statItem}" onclick="editStat(this, this.id)"> Edit </button>
            <footer class="card-footer ${bk_color}">
            
              <p class="card-footer-title">${stat.Label}  </p>
