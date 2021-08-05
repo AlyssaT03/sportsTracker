@@ -1,4 +1,6 @@
 let googleUser;
+var editing = false;
+let eventsData;
 
 window.onload = event => {
     // Use this to retain user state between html pages.
@@ -49,19 +51,36 @@ cancelButton.addEventListener("click", e => {
 })
 
 function getData() {
-    var name = document.querySelector("#eventName").value;
-    var date = document.querySelector("#date").value;
-    var description = document.querySelector("#description").value;
-    var sport = document.querySelector("#sport").value;
-    var eventType = document.querySelector("#eventType").value;
+    const name = document.querySelector("#eventName").value;
+    const date = document.querySelector("#date").value;
+    const description = document.querySelector("#description").value;
+    const sport = document.querySelector("#sport").value;
+    const eventType = document.querySelector("#eventType").value;
 
+     if(editing){
+    editingCard = document.getElementsByClassName("is-editing")[0];
+    editingCard.classList.remove("is-editing");
+
+    eventId = editingCard.id;
+
+    const editUpdate = {};
+    editUpdate[googleUser.uid + '/Events/' + eventId + "/Name"] = name;
+    editUpdate[googleUser.uid + '/Events/' + eventId + "/Description"] = description;
+    editUpdate[googleUser.uid + '/Events/' + eventId + "/Sport"] = sport;
+    editUpdate[googleUser.uid + '/Events/' + eventId + "/Date"] = date;
+    editUpdate[googleUser.uid + '/Events/' + eventId + "/EventType"] = eventType;
+
+    firebase.database().ref().update(editUpdate);
+    editing = false;
+  }else{
     firebase.database().ref(`${googleUser.uid}/Events`).push({
         Name: name,
         Date: date,
-        "EventType": eventType,
-        "Sport": sport,
+        EventType: eventType,
+        Sport: sport,
         Description: description,
     })
+}
     getNotes();
 }
 
@@ -74,18 +93,17 @@ const getNotes = userId => {
 
 //Given a list of notes, render them in HTML
 const renderDataAsHtml = (data) => {
+    eventsData = data.val();
     let eventList = [];
      data.forEach((child) => {
         const childObj = child.val();
         childObj.id = child.key;
         eventList.push(childObj)
      })
-     console.log(eventList);
     const sortedData = eventList.sort(function(a,b){
         d1 = new Date(a.Date).getTime();
         d2 = new Date(b.Date).getTime();
         return d1 - d2});
-        console.log(sortedData);
     let cards = "";
     sortedData.forEach((child) => {
         const event = child;
@@ -96,8 +114,20 @@ const renderDataAsHtml = (data) => {
     document.querySelector("#app").innerHTML = cards;
 };
 
-function deleteNote(eventItem) {
+function deleteEvent(eventItem) {
     firebase.database().ref(`${googleUser.uid}/Events/${eventItem}`).remove();
+}
+
+function editEvent(eventCard, eventItem){
+    editing = true;
+    eventCard.classList.add("is-editing");
+    modal.classList.add("is-active");
+
+    document.querySelector('#eventName').value = eventsData[eventItem].Name;
+    document.querySelector('#description').value = eventsData[eventItem].Description;
+    document.querySelector('#sport').value = eventsData[eventItem].Sport;
+    document.querySelector('#date').value = eventsData[eventItem].Date;
+    document.querySelector('#eventType').value = eventsData[eventItem].EventType;
 }
 
 // Return a note object converted into an HTML card
@@ -120,8 +150,8 @@ const createCard = (event, eventItem) => {
            </header>
            <div class="card-content">
              <div class="content">${event.Description}</div>
-             <button class="button" id="${eventItem}" onclick="deleteNote(this.id)"> Delete </button>
-            
+             <button class="button" id="${eventItem}" onclick="deleteEvent(this.id)"> Delete </button>
+            <button class="button" id="${eventItem}" onclick="editEvent(this, this.id)"> Edit </button>
            <footer class="card-footer ${bk_color}">
 
            
