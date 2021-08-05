@@ -39,10 +39,10 @@
    <body>
       <section class="hero is-info">
          <div class="hero-body">
-               <h1 class="title">
-                  Sports Tracker
-               </h1>
-               <h5 class="subtitle">Keep track of your runs on the run!</h5>
+            <h1 class="title">
+               Sports Tracker
+            </h1>
+            <h5 class="subtitle">Keep track of your runs on the run!</h5>
             <section id="navbar">
                <nav class="navbar" role="navigation" aria-label="main navigation">
                   <div id="navbarBasicExample" class="navbar-menu">
@@ -56,70 +56,77 @@
                         <a class="navbar-item" href="calendar.html">
                         Calendar
                         </a>
-                        <a class="navbar-item" href="chat.html">
-                        Chat
-                        </a>
                         <!-- <a class="navbar-item" href="profile.html">
-                        Profile
-                        </a> -->
+                           Profile
+                           </a> -->
                      </div>
                   </div>
-                  <div class="navbar-end">
-              <div class="navbar-item">
+                                 <div class="navbar-end">
+               <div class="navbar-item">
                 <div class="buttons slanted">
                   <a class="button is-success" onclick="googleSignout()">
                     Log Out
                   </a>
                 </div>
               </div>
-            </div>
+              </div>
                </nav>
             </section>
          </div>
          <div class="content">
-            <h1>About Us</h1>
-            <h5>
-               This website is a beta Sports Tracker and allows users to log various types of data about their sports routine! Such data includes your
-               personal stats, your regular practices, and your tournament dates. More features to come!
-            </h5>
-            <h1>How to Use?</h1>
-            <h5>
-               View your events or click the "Add Event" button below to get started!
-            </h5>
-             <div class="buttons">
+            <h1>Your Calendar</h1>
+            <div id = "labelsBox" class = "column is-one-fifth">
+
+            </div>
+            <div class="buttons">
                 <button id ="addEntry" class="button is-primary is-halfwidth">Add Event</button>
             </div>
-      <div id="app" class="columns is-multiline">
-          <!-- Note cards will render here -->
-        </div>
-    </div>
+            <div class="column">
+                <h2 id="month"></h2>
+                <table class="table is-fullwidth is-striped">
+                    <thead>
+                        <tr>
+                            <th>Sunday</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                        </tr>
+                    </thead>
+                    <tbody id = "app">
+                    </tbody>
+
+                </table>
+            </div>
+         </div>
       </section>
       <div id="modalElement" class=" modal">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Add Event</p>
-      <button class="delete cancel" id="cancel"> Add Event</button>
-    </header>
-
-    <input id="eventName" class="incorrect input is-primary is-large" type="text" placeholder="Name of Event..." required />
-    <input id ="date" type="date" class="incorrect input is-primary is-large"
-       value="2021-08-01" min="2021-08-01" max="2021-12-31" required />
-    <input id="description" class="incorrect input is-primary is-large" type="text" placeholder="Description ... " />
-        <div class="select is-large">
-            <select id="eventType">
-                <option value="practice">Practice</option>
-                <option value="tournament">Tournament</option>
-                <option value="other">Other</option>
-            </select>
-        </div>
-    <input id="sport" class="incorrect input is-primary is-large" type="text" placeholder="Sport... " />
-    <footer class="modal-card-foot">
-      <button class="button is-success save" id="save">Save changes</button>
-      <button class="button cancel"id="cancel">Cancel</button>
-    </footer>
-  </div>
-</div>
-      <script src="js/index.js"></script>
+         <div class="modal-background"></div>
+         <div class="modal-card">
+            <header class="modal-card-head">
+               <p class="modal-card-title">Add Event</p>
+               <button class="delete cancel" id="cancel"> Add Event</button>
+            </header>
+            <input id="eventName" class="incorrect input is-primary is-large" type="text" name="language" placeholder="Name of Event..." required>
+            <input id ="date" type="date" class="incorrect input is-primary is-large"  name="event-date"
+               value="2021-08-01" min="2021-08-01" max="2021-12-31" required>
+            <input id="description" class="incorrect input is-primary is-large" type="text" placeholder="Description ... " >
+            <div class="select is-large">
+               <select id="eventType">
+                  <option value="practice">Practice</option>
+                  <option value="tournament">Tournament</option>
+                  <option value="other">Other</option>
+               </select>
+            </div>
+            <input id="sport" class="incorrect input is-primary is-large" type="text" placeholder="Sport... " >
+            <footer class="modal-card-foot">
+               <button class="button is-success save" id="save">Save changes</button>
+               <button class="button cancel"id="cancel">Cancel</button>
+            </footer>
+         </div>
+      </div>
+      <script src="js/calendar.js"></script>
    </body>
 </html>

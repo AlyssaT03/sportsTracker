@@ -1,6 +1,7 @@
 let googleUser;
 var editing = false;
 let eventsData;
+let monthAsNum;
 
 window.onload = event => {
     // Use this to retain user state between html pages.
@@ -8,7 +9,8 @@ window.onload = event => {
         if (user) {
             console.log("Logged in as: " + user.displayName);
             googleUser = user;
-            getNotes();
+            setCalendar();
+            getEvents();
         } else {
             window.location = "signIn.html"; // If not logged in, navigate back to login page.
         }
@@ -36,8 +38,6 @@ addEntry.addEventListener("click", (e) => {
 
 const saveButton = document.querySelector("#save");
 const cancelButton = document.querySelector("#cancel");
-
-console.log(saveButton);
 
 saveButton.addEventListener("click", e => {
     modal.classList.remove("is-active");
@@ -81,41 +81,126 @@ function getData() {
         Description: description,
     })
 }
-    getNotes();
+    setCalendar();
+    renderDataAsHtml(eventsData);
 }
 
-const getNotes = userId => {
+const setCalendar = () => {
+    var options = { month: 'long'};
+    const month = document.querySelector('#month');
+    const numDate = new Date();
+    currentMonth = new Intl.DateTimeFormat('en-US', options).format(numDate);
+    month.innerHTML = currentMonth; 
+    monthAsNum = numDate.getMonth() + 1;
+    let calendarCells = "<tr>";
+    var monthString;
+    if(monthAsNum < 10){
+        monthString = "0" + monthAsNum;
+    }
+    else{
+        monthString = monthAsNum;
+    }
+    firstDayOfTheMonth = new Date(numDate.getFullYear(), monthAsNum - 1, 1); 
+    dayOfTheWeek = new Date(firstDayOfTheMonth).getDay();
+    for(i = 0; i < dayOfTheWeek; i++){
+        calendarCells += "<td></td>";
+    }
+    for(i = 0; i < getDaysInMonth(numDate.getMonth()); i++){
+        if(dayOfTheWeek == 7){
+            calendarCells += "</tr><tr>"
+            dayOfTheWeek = 0;
+        }
+        var day = "";
+        if(i < 9){
+            day = "0" + (i + 1);
+        }
+        else{
+            day = "" + (i + 1);
+        }
+        const currDate = numDate.getFullYear() + "-" + monthString + "-" + day;
+        calendarCells += `<td id=d${currDate}>${blankCard()}</td>`
+        dayOfTheWeek++;
+    }
+    calendarCells += "</tr>";
+    document.querySelector("#app").innerHTML = calendarCells;
+}
+
+const getEvents = userId => {
     const eventsRef = firebase.database().ref(`${googleUser.uid}/Events`)
     eventsRef.orderByChild("title").on("value", snapshot => {
-        renderDataAsHtml(snapshot);
+        eventsData = snapshot.val();
+        renderDataAsHtml(eventsData);
+        getLabelButtons();
     });
 };
 
 //Given a list of notes, render them in HTML
 const renderDataAsHtml = (data) => {
-    eventsData = data.val();
     let eventList = [];
-     data.forEach((child) => {
-        const childObj = child.val();
-        childObj.id = child.key;
-        eventList.push(childObj)
-     })
-    const sortedData = eventList.sort(function(a,b){
-        d1 = new Date(a.Date).getTime();
-        d2 = new Date(b.Date).getTime();
-        return d1 - d2});
-    let cards = "";
-    sortedData.forEach((child) => {
-        const event = child;
-        const eventItem = child.id;
-        cards += createCard(event, eventItem);
+    console.log(data);
+    for(const child in data){
+        const childObj = data[child];
+        console.log(childObj);
+         childObj.id = data[child].key;
+         eventList.push(childObj)
+    }
+    eventList.forEach((child) => {
+        eventMonth = child.Date.split("-")[1];
+        if(eventMonth == monthAsNum){
+            const event = child;
+            const eventItem = child.id;
+            const eventCard = createCard(event, eventItem);
+            //document.getElementById("d" + child.Date).insertAdjacentHTML("afterbegin", eventCard);
+            document.getElementById("d" + child.Date).innerHTML = eventCard;
+        }
     })
-
-    document.querySelector("#app").innerHTML = cards;
 };
 
 function deleteEvent(eventItem) {
     firebase.database().ref(`${googleUser.uid}/Events/${eventItem}`).remove();
+    setCalendar();
+    renderDataAsHtml();
+}
+
+//Places the label buttons above the cards.
+function getLabelButtons() {
+  let labels =
+    `<button class="all button is-link has-text-weight-medium is-medium"  onclick="showAll()">ALL</button>`;
+  //console.log(sortedLabels);
+//   for (var i = 0; i < sortedLabels.length; i++) {
+//     console.log(sortedLabels[i]);
+//     labels += createLabelButton(sortedLabels[i]);
+//   }
+    labels += createLabelButton("Practice");
+    labels += createLabelButton("Tournament");
+  document.querySelector("#labelsBox").innerHTML = labels;
+}
+
+// Sorts the notes by label.
+function filterByLabel(labelName) {
+  console.log("filtering" + labelName);
+  let eventsOfCertainLabel = [];
+  for (const eventItem in eventsData) {
+    const event = eventsData[eventItem];
+      if (event.EventType == labelName.toLowerCase()) {
+        eventsOfCertainLabel.push(event);
+      }
+  }
+  console.log(eventsOfCertainLabel);
+  setCalendar();
+  renderDataAsHtml(eventsOfCertainLabel);
+}
+
+//Creates label buttons.
+function createLabelButton(labelName) {
+  console.log("Generating label for " + labelName);
+  const label = `
+        <button class="button is-link has-text-weight-medium is-medium"  onclick="filterByLabel('${labelName}')">${labelName}</button>`;
+  return label;
+}
+
+function showAll() {
+  renderDataAsHtml(eventsData);
 }
 
 function editEvent(eventCard, eventItem){
@@ -139,9 +224,8 @@ const createCard = (event, eventItem) => {
     } else if (event.EventType == "tournament") {
         bk_color = colors[4]
     }
-
     return `
-         <div class="column is-one-quarter">
+        <!-- <div class="column is-one-quarter"> -->
          <div class="card ${bk_color}">
            <header class="card-header">
              <p class="card-header-title">${event.Name}</p>
@@ -160,10 +244,45 @@ const createCard = (event, eventItem) => {
            </footer>
            </div>
          </div>
-       </div> `;
+      <!-- </div> -->
+`;
 };
+
+const blankCard = () => {
+    return `
+         <div class="card" style="background-color:grey;">
+           <header class="card-header">
+             <p class="card-header-title">No Events</p>   
+           </header>
+           <div class="card-content">
+             <div class="content">You have no events on this day.</div>
+                <footer class="card-footer" style="background-color:grey;">
+                    <p class="card-footer-title">Click "Add event" below to add an event.</p>
+                </footer>
+           </div>
+         </div>
+`
+}
 
 function changeEventType(selectButton) {
     eventType = selectButton.target.value;
     console.log("Event type changed");
+}
+
+function getDaysInMonth(month){
+    const thirtyDays = [3, 5, 8, 10];
+    const thirtyOneDays = [0, 4, 6, 7, 9, 11];
+    if(thirtyDays.includes(month)){
+        return 30;
+    }
+    else if(thirtyOneDays.includes(month)){
+        return 31;
+    }
+    else if (month == 1){
+        return 29;
+    }
+    else{
+        console.log("Invalid month.");
+        return 0;
+    }
 }

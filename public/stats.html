@@ -39,12 +39,10 @@
    <body>
       <section class="hero is-info">
          <div class="hero-body">
-            <div class="container">
                <h1 class="title">
                   Sports Tracker
                </h1>
                <h5 class="subtitle">Keep track of your runs on the run!</h5>
-            </div>
             <section id="navbar">
                <nav class="navbar" role="navigation" aria-label="main navigation">
                   <div id="navbarBasicExample" class="navbar-menu">
@@ -55,11 +53,23 @@
                         <a class="navbar-item" href="stats.html">
                         Stats
                         </a>
-                        <a class="navbar-item" href="profile.html">
-                        Profile
+                        <a class="navbar-item" href="calendar.html">
+                        Calendar
                         </a>
+                        <!-- <a class="navbar-item" href="profile.html">
+                        Profile
+                        </a> -->
                      </div>
                   </div>
+                  <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons slanted">
+                  <a class="button is-success" onclick="googleSignout()">
+                    Log Out
+                  </a>
+                </div>
+              </div>
+            </div>
                </nav>
             </section>
          </div>
@@ -72,17 +82,21 @@
             <h5>
                Take a look at your stats below or press "Add Stats"!
             </h5>
-         </div>
-         <div class="content">
             <div class="buttons">
                <button id ="addStat" class="button is-primary is-halfwidth">Add Stat</button>
             </div>
+        <div id="app" class="columns is-multiline">
+          <!-- Note cards will render here -->
+        </div>
+         </div>
+      </section>
+                           <div class="content">
             <div id="modalElement" class=" modal">
                <div class="modal-background"></div>
                <div class="modal-card">
                   <header class="modal-card-head">
                      <p class="modal-card-title">Add Event</p>
-                     <button class="delete" aria-label="close">Delete Event</button>
+                     <button class="delete cancel" id="cancel"> Add Event</button>
                   </header>
                   <input id="statName" class="incorrect input is-primary is-large" type="text" name="statName" placeholder="Name of stat...">
                   <input id="statDescrip" class="incorrect input is-primary is-large" type="text" name="statName" placeholder="Description of Stat">
@@ -96,7 +110,6 @@
                </div>
             </div>
          </div>
-      </section>
       <script src="js/stats.js"></script>
    </body>
 </html>
