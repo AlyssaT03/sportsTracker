@@ -10,6 +10,7 @@ window.onload = event => {
             console.log("Logged in as: " + user.displayName);
             googleUser = user;
             setCalendar();
+            getEvents();
         } else {
             window.location = "signIn.html"; // If not logged in, navigate back to login page.
         }
@@ -81,6 +82,7 @@ function getData() {
     })
 }
     setCalendar();
+    renderDataAsHtml(eventsData);
 }
 
 const setCalendar = () => {
@@ -121,25 +123,27 @@ const setCalendar = () => {
     }
     calendarCells += "</tr>";
     document.querySelector("#app").innerHTML = calendarCells;
-    getEvents();
 }
 
 const getEvents = userId => {
     const eventsRef = firebase.database().ref(`${googleUser.uid}/Events`)
     eventsRef.orderByChild("title").on("value", snapshot => {
-        renderDataAsHtml(snapshot);
+        eventsData = snapshot.val();
+        renderDataAsHtml(eventsData);
+        getLabelButtons();
     });
 };
 
 //Given a list of notes, render them in HTML
 const renderDataAsHtml = (data) => {
-    eventsData = data.val();
     let eventList = [];
-    data.forEach((child) => {
-         const childObj = child.val();
-         childObj.id = child.key;
+    console.log(data);
+    for(const child in data){
+        const childObj = data[child];
+        console.log(childObj);
+         childObj.id = data[child].key;
          eventList.push(childObj)
-      })
+    }
     eventList.forEach((child) => {
         eventMonth = child.Date.split("-")[1];
         if(eventMonth == monthAsNum){
@@ -155,6 +159,48 @@ const renderDataAsHtml = (data) => {
 function deleteEvent(eventItem) {
     firebase.database().ref(`${googleUser.uid}/Events/${eventItem}`).remove();
     setCalendar();
+    renderDataAsHtml();
+}
+
+//Places the label buttons above the cards.
+function getLabelButtons() {
+  let labels =
+    `<button class="all button is-link has-text-weight-medium is-medium"  onclick="showAll()">ALL</button>`;
+  //console.log(sortedLabels);
+//   for (var i = 0; i < sortedLabels.length; i++) {
+//     console.log(sortedLabels[i]);
+//     labels += createLabelButton(sortedLabels[i]);
+//   }
+    labels += createLabelButton("Practice");
+    labels += createLabelButton("Tournament");
+  document.querySelector("#labelsBox").innerHTML = labels;
+}
+
+// Sorts the notes by label.
+function filterByLabel(labelName) {
+  console.log("filtering" + labelName);
+  let eventsOfCertainLabel = [];
+  for (const eventItem in eventsData) {
+    const event = eventsData[eventItem];
+      if (event.EventType == labelName.toLowerCase()) {
+        eventsOfCertainLabel.push(event);
+      }
+  }
+  console.log(eventsOfCertainLabel);
+  setCalendar();
+  renderDataAsHtml(eventsOfCertainLabel);
+}
+
+//Creates label buttons.
+function createLabelButton(labelName) {
+  console.log("Generating label for " + labelName);
+  const label = `
+        <button class="button is-link has-text-weight-medium is-medium"  onclick="filterByLabel('${labelName}')">${labelName}</button>`;
+  return label;
+}
+
+function showAll() {
+  renderDataAsHtml(eventsData);
 }
 
 function editEvent(eventCard, eventItem){
