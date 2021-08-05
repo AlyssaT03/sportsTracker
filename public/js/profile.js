@@ -13,6 +13,17 @@ window.onload = event => {
   });
 };
 
+function googleSignout() {
+   firebase.auth().signOut()
+	
+   .then(function() {
+      console.log('Signout Succesfull')
+      window.location = 'signIn.html'
+   }, function(error) {
+      console.log('Signout Failed')  
+   });
+}
+
 function setProfile(){
     const userImg = document.querySelector("#userImg");
     userImg.src = googleUser.getBasicProfile().getImageUrl();
