@@ -7,21 +7,11 @@ window.onload = event => {
     if (user) {
       console.log("Logged in as: " + user.displayName);
       googleUser = user;
-<<<<<<< HEAD
-      getNotes();
-=======
         getNotes();
->>>>>>> ca359b7cf3917cc579df296a943674332b76b5e2
     } else {
       window.location = "signIn.html"; // If not logged in, navigate back to login page.
     }
   });
-<<<<<<< HEAD
-
-
-   getNotes();
-=======
->>>>>>> ca359b7cf3917cc579df296a943674332b76b5e2
 };
 
 const addEntry = document.querySelector("#addEntry");
