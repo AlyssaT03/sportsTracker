@@ -41,33 +41,31 @@ cancelButton.addEventListener("click", e => {
 
 const handleStatsSubmit = () => {
   // 1. Capture the form data
-  const statName = document.querySelector('#statName');
-  const statDescrip = document.querySelector('#statDescrip');
-  const statLabel = document.querySelector('#statLabel');
-  const statDate = document.querySelector('#statDate');
+  const statName = document.querySelector('#statName').value;
+  const statDescrip = document.querySelector('#statDescrip').value;
+  const statLabel = document.querySelector('#statLabel').value;
+  const statDate = document.querySelector('#statDate').value;
   // 2. Format the data and write it to our database
   if(editing){
     editingCard = document.getElementsByClassName("is-editing")[0];
-    console.log(editingCard);
-    console.log(editingCard.classList);
     editingCard.classList.remove("is-editing");
 
     statId = editingCard.id;
 
     const editUpdate = {};
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Name"] = statName.value;
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Description"] = statDescrip.value;
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Label"] = statLabel.value;
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Date"] = statDate.value;
+    editUpdate[googleUser.uid + '/Stats/' + statId + "/Name"] = statName;
+    editUpdate[googleUser.uid + '/Stats/' + statId + "/Description"] = statDescrip;
+    editUpdate[googleUser.uid + '/Stats/' + statId + "/Label"] = statLabel;
+    editUpdate[googleUser.uid + '/Stats/' + statId + "/Date"] = statDate;
 
     firebase.database().ref().update(editUpdate);
     editing = false;
   }else{
       firebase.database().ref(`${googleUser.uid}/Stats`).push({
-        Name: statName.value,
-        Description: statDescrip.value,
-        Label: statLabel.value,
-        Date: statDate.value
+        Name: statName,
+        Description: statDescrip,
+        Label: statLabel,
+        Date: statDate
     })
   }
   getStats();
@@ -83,24 +81,20 @@ const getStats = userId => {
 //Given a list of notes, render them in HTML
 const renderDataAsHtml = (data) => {
     statData = data.val();
-    console.log(statData);
     let statList = []; 
     data.forEach((child) => {
         const childObj = child.val();
         childObj.id = child.key;
         statList.push(childObj)
      })
-     console.log(statList);
     const sortedData = statList.sort(function(a,b){
         d1 = new Date(a.Date).getTime();
         d2 = new Date(b.Date).getTime();
         return d1 - d2});
-        console.log(sortedData);
     let cards = "";
     sortedData.forEach((child) => {
         const stat = child;
         const statItem = child.id;
-        console.log(createCard(stat, statItem));
         cards += createCard(stat, statItem);
     })
     document.querySelector("#app").innerHTML = cards;
