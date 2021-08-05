@@ -15,6 +15,17 @@ window.onload = event => {
   });
 };
 
+function googleSignout() {
+   firebase.auth().signOut()
+	
+   .then(function() {
+      console.log('Signout Succesfull')
+      window.location = 'signIn.html'
+   }, function(error) {
+      console.log('Signout Failed')  
+   });
+}
+
 const addEntry = document.querySelector("#addStat");
 const modal = document.querySelector("#modalElement");
 const dropDown = document.querySelector(".dropdown-menu");
