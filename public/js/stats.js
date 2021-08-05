@@ -64,15 +64,15 @@ const handleStatsSubmit = () => {
     statId = editingCard.id;
 
     const editUpdate = {};
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Name"] = statName;
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Description"] = statDescrip;
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Label"] = statLabel;
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Date"] = statDate;
+    editUpdate['users' + googleUser.uid + '/Stats/' + statId + "/Name"] = statName;
+    editUpdate['users' + googleUser.uid + '/Stats/' + statId + "/Description"] = statDescrip;
+    editUpdate['users' + googleUser.uid + '/Stats/' + statId + "/Label"] = statLabel;
+    editUpdate['users' + googleUser.uid + '/Stats/' + statId + "/Date"] = statDate;
 
     firebase.database().ref().update(editUpdate);
     editing = false;
   }else{
-      firebase.database().ref(`${googleUser.uid}/Stats`).push({
+      firebase.database().ref(`users/${googleUser.uid}/Stats`).push({
         Name: statName,
         Description: statDescrip,
         Label: statLabel,
@@ -83,7 +83,7 @@ const handleStatsSubmit = () => {
 }
 
 const getStats = userId => {
-    const eventsRef = firebase.database().ref(`${googleUser.uid}/Stats`)
+    const eventsRef = firebase.database().ref(`users/${googleUser.uid}/Stats`)
     eventsRef.orderByChild("title").on("value", snapshot => {
         renderDataAsHtml(snapshot);
     });
@@ -112,7 +112,7 @@ const renderDataAsHtml = (data) => {
 };
 
 function deleteStat(statItem) {
-    firebase.database().ref(`${googleUser.uid}/Stats/${statItem}`).remove();
+    firebase.database().ref(`users/${googleUser.uid}/Stats/${statItem}`).remove();
 }
 
 function editStat(statCard, statItem){

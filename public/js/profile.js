@@ -58,6 +58,6 @@ function setImage(){
     const profileImg = document.querySelector("#userImg");
     profileImg.src = urlInput.value;
     const profileUpdate = {};
-    profileUpdate[`${googleUserID}/profile/imgURL`] = urlInput.value;
+    profileUpdate[`users/${googleUserID}/Profile/imgURL`] = urlInput.value;
     firebase.database().ref().update(profileUpdate);
 }

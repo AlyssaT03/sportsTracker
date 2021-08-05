@@ -68,16 +68,16 @@ function getData() {
     eventId = editingCard.id;
 
     const editUpdate = {};
-    editUpdate[googleUser.uid + '/Events/' + eventId + "/Name"] = name;
-    editUpdate[googleUser.uid + '/Events/' + eventId + "/Description"] = description;
-    editUpdate[googleUser.uid + '/Events/' + eventId + "/Sport"] = sport;
-    editUpdate[googleUser.uid + '/Events/' + eventId + "/Date"] = date;
-    editUpdate[googleUser.uid + '/Events/' + eventId + "/EventType"] = eventType;
+    editUpdate['users/' + googleUser.uid + '/Events/' + eventId + "/Name"] = name;
+    editUpdate['users/' + googleUser.uid + '/Events/' + eventId + "/Description"] = description;
+    editUpdate['users/' + googleUser.uid + '/Events/' + eventId + "/Sport"] = sport;
+    editUpdate['users/' + googleUser.uid + '/Events/' + eventId + "/Date"] = date;
+    editUpdate['users/' + googleUser.uid + '/Events/' + eventId + "/EventType"] = eventType;
 
     firebase.database().ref().update(editUpdate);
     editing = false;
   }else{
-    firebase.database().ref(`${googleUser.uid}/Events`).push({
+    firebase.database().ref(`users/${googleUser.uid}/Events`).push({
         Name: name,
         Date: date,
         EventType: eventType,
@@ -89,7 +89,7 @@ function getData() {
 }
 
 const getNotes = userId => {
-    const eventsRef = firebase.database().ref(`${googleUser.uid}/Events`)
+    const eventsRef = firebase.database().ref(`users/${googleUser.uid}/Events`)
     eventsRef.orderByChild("title").on("value", snapshot => {
         renderDataAsHtml(snapshot);
     });
@@ -119,7 +119,7 @@ const renderDataAsHtml = (data) => {
 };
 
 function deleteEvent(eventItem) {
-    firebase.database().ref(`${googleUser.uid}/Events/${eventItem}`).remove();
+    firebase.database().ref(`users/${googleUser.uid}/Events/${eventItem}`).remove();
 }
 
 function editEvent(eventCard, eventItem){
