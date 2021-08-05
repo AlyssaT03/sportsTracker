@@ -1,6 +1,9 @@
 let googleUser;
 var editing = false;
 let eventsData;
+let bk_color;
+const colors = ["has-background-link-light", "has-background-info-light", "has-background-success-light", "has-background-danger-light", "has-background-primary-dark", 
+                    "has-background-link-dark", "has-background-info-dark", "has-background-success-dark", "has-background-warning-dark", "has-background-danger-dark"]
 
 window.onload = event => {
     // Use this to retain user state between html pages.
@@ -8,6 +11,7 @@ window.onload = event => {
         if (user) {
             console.log("Logged in as: " + user.displayName);
             googleUser = user;
+            bk_color = colors[Math.floor(Math.random() * colors.length)]
             getNotes();
         } else {
             window.location = "signIn.html"; // If not logged in, navigate back to login page.
@@ -132,34 +136,39 @@ function editEvent(eventCard, eventItem){
 
 // Return a note object converted into an HTML card
 const createCard = (event, eventItem) => {
-    const colors = ["has-background-primary-light", "has-background-link-light", "has-background-info-light", "has-background-success-light", "has-background-warning-light", "has-background-danger-light", "has-background-primary-dark", "has-background-link-dark", "has-background-info-dark", "has-background-success-dark", "has-background-warning-dark", "has-background-danger-dark"]
-    var bk_color = colors[Math.floor(Math.random() * colors.length)]
+    let cardColor;
     if (event.EventType == "practice") {
-        bk_color = colors[0]
+        cardColor = "has-background-primary-light";
     } else if (event.EventType == "tournament") {
-        bk_color = colors[4]
+        cardColor = "has-background-warning-light";
     }
 
     return `
-         <div class="column is-one-quarter">
-         <div class="card ${bk_color}">
-           <header class="card-header">
-             <p class="card-header-title">${event.Name}</p>
-             <p class="card-header-title">${event.Date}</p>
-           
-           </header>
-           <div class="card-content">
-             <div class="content">${event.Description}</div>
-             <button class="button" id="${eventItem}" onclick="deleteEvent(this.id)"> Delete </button>
-            <button class="button" id="${eventItem}" onclick="editEvent(this, this.id)"> Edit </button>
-           <footer class="card-footer ${bk_color}">
-           
-             <p class="card-footer-title">${event.Sport} </p> &nbsp;
-              <p class="card-footer-title">EVENT: ${event.EventType}</p>
-
-           </footer>
-           </div>
-         </div>
+        <div class="column">
+            <div class="card ${cardColor}">
+                <header class="card-header">
+                    <p class="card-header-title">${event.Name}</p>
+                    <p class="card-header-title">${event.Date}</p>
+                    <button class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </header>
+                <div class="card-content">
+                        <div class="content">
+                            ${event.Description}
+                            <br>
+                            SPORT: ${event.Sport}
+                            <br>
+                            EVENT: ${event.EventType}
+                        </div>
+                        <footer class="card-footer ${cardColor}">
+                            <button class="button" id="${eventItem}" onclick="deleteEvent(this.id)"> Delete </button>
+                            <button class="button" id="${eventItem}" onclick="editEvent(this, this.id)"> Edit </button>
+                        </footer>
+                </div>
+            </div>
        </div> `;
 };
 
