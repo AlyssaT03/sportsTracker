@@ -106,10 +106,10 @@ input {
     height: 30px;
 }
 
-button {
+/* button {
     width: 25%;
     height: 38px;
-}
+} */
 
 .sent {
     text-align: right;

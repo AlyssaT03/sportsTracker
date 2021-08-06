@@ -2,6 +2,10 @@ let googleUser;
 var editing = false;
 let eventsData;
 let monthAsNum;
+let currentYear = 2021;
+let bk_color;
+const colors = ["has-background-link-light", "has-background-info-light", "has-background-success-light", "has-background-danger-light", "has-background-primary-dark", 
+                    "has-background-link-dark", "has-background-info-dark", "has-background-success-dark", "has-background-warning-dark", "has-background-danger-dark"]
 
 window.onload = event => {
     // Use this to retain user state between html pages.
@@ -9,6 +13,7 @@ window.onload = event => {
         if (user) {
             console.log("Logged in as: " + user.displayName);
             googleUser = user;
+            bk_color = colors[Math.floor(Math.random() * colors.length)]
             setCalendar();
             getEvents();
         } else {
@@ -33,8 +38,16 @@ const modal = document.querySelector("#modalElement");
 const dropDown = document.querySelector(".dropdown-menu");
 
 addEntry.addEventListener("click", (e) => {
-    modal.classList.add("is-active");
+    makeNewEvent();
 });
+
+function makeNewEvent(date){
+    modal.classList.add("is-active");
+    if(date != null){
+        const dateBox = document.querySelector("#date");
+        dateBox.value = date;
+    }
+}
 
 const saveButton = document.querySelector("#save");
 const cancelButton = document.querySelector("#cancel");
@@ -86,13 +99,14 @@ function getData() {
 }
 
 const setCalendar = () => {
-    var options = { month: 'long'};
-    const month = document.querySelector('#month');
-    const numDate = new Date();
-    currentMonth = new Intl.DateTimeFormat('en-US', options).format(numDate);
-    month.innerHTML = currentMonth; 
-    monthAsNum = numDate.getMonth() + 1;
-    let calendarCells = "<tr>";
+    let currentMonth;
+    const monthText = document.querySelector('#month');
+        var options = { month: 'long'};
+        let numDate = new Date();
+        currentMonth = new Intl.DateTimeFormat('en-US', options).format(numDate);
+        monthAsNum = numDate.getMonth() + 1;
+    monthText.innerHTML = currentMonth; 
+    let calendarCells = `<tr class="columns">`;
     var monthString;
     if(monthAsNum < 10){
         monthString = "0" + monthAsNum;
@@ -107,7 +121,7 @@ const setCalendar = () => {
     }
     for(i = 0; i < getDaysInMonth(numDate.getMonth()); i++){
         if(dayOfTheWeek == 7){
-            calendarCells += "</tr><tr>"
+            calendarCells += `</tr><tr class="columns">`
             dayOfTheWeek = 0;
         }
         var day = "";
@@ -118,7 +132,7 @@ const setCalendar = () => {
             day = "" + (i + 1);
         }
         const currDate = numDate.getFullYear() + "-" + monthString + "-" + day;
-        calendarCells += `<td id=d${currDate}>${blankCard()}</td>`
+        calendarCells += `<td class="column is-blank" id=d${currDate}>${blankCard(currDate)}</td>`
         dayOfTheWeek++;
     }
     calendarCells += "</tr>";
@@ -140,9 +154,9 @@ const renderDataAsHtml = (data) => {
     console.log(data);
     for(const child in data){
         const childObj = data[child];
-        console.log(childObj);
-         childObj.id = data[child].key;
+         childObj.id = child;
          eventList.push(childObj)
+         console.log(childObj);
     }
     eventList.forEach((child) => {
         eventMonth = child.Date.split("-")[1];
@@ -150,16 +164,24 @@ const renderDataAsHtml = (data) => {
             const event = child;
             const eventItem = child.id;
             const eventCard = createCard(event, eventItem);
-            //document.getElementById("d" + child.Date).insertAdjacentHTML("afterbegin", eventCard);
-            document.getElementById("d" + child.Date).innerHTML = eventCard;
+            const eventSlot = document.getElementById("d" + child.Date);
+            if(eventSlot.classList.contains("is-blank")){
+                document.getElementById("d" + child.Date).innerHTML = eventCard;
+                eventSlot.classList.remove("is-blank");
+            }else{
+                document.getElementById("d" + child.Date).insertAdjacentHTML("afterbegin", "<br>" + eventCard);
+            }
+           // document.getElementById("d" + child.Date).insertAdjacentHTML("afterbegin", "<br>" + eventCard);
+            //document.getElementById("d" + child.Date).innerHTML = eventCard;
         }
     })
 };
 
 function deleteEvent(eventItem) {
+    console.log(eventItem);
     firebase.database().ref(`users/${googleUser.uid}/Events/${eventItem}`).remove();
     setCalendar();
-    renderDataAsHtml();
+    renderDataAsHtml(eventsData);
 }
 
 //Places the label buttons above the cards.
@@ -217,47 +239,46 @@ function editEvent(eventCard, eventItem){
 
 // Return a note object converted into an HTML card
 const createCard = (event, eventItem) => {
-    const colors = ["has-background-primary-light", "has-background-link-light", "has-background-info-light", "has-background-success-light", "has-background-warning-light", "has-background-danger-light", "has-background-primary-dark", "has-background-link-dark", "has-background-info-dark", "has-background-success-dark", "has-background-warning-dark", "has-background-danger-dark"]
-    var bk_color = colors[Math.floor(Math.random() * colors.length)]
+    let cardColor;
     if (event.EventType == "practice") {
-        bk_color = colors[0]
+        cardColor = "has-background-primary-light";
     } else if (event.EventType == "tournament") {
-        bk_color = colors[4]
+        cardColor = "has-background-warning-light";
     }
+    console.log(eventItem);
     return `
-        <!-- <div class="column is-one-quarter"> -->
-         <div class="card ${bk_color}">
-           <header class="card-header">
-             <p class="card-header-title">${event.Name}</p>
-             <p class="card-header-title">${event.Date}</p>
-           
-           </header>
-           <div class="card-content">
-             <div class="content">${event.Description}</div>
-             <button class="button" id="${eventItem}" onclick="deleteEvent(this.id)"> Delete </button>
-            <button class="button" id="${eventItem}" onclick="editEvent(this, this.id)"> Edit </button>
-           <footer class="card-footer ${bk_color}">
-           
-             <p class="card-footer-title">${event.Sport} </p> &nbsp;
-              <p class="card-footer-title">EVENT: ${event.EventType}</p>
-
-           </footer>
-           </div>
-         </div>
-      <!-- </div> -->
-`;
+        
+            <div class="card ${cardColor} is-scheduled">
+                <header class="card-header">
+                    <p class="card-header-title">${event.Name}</p>
+                    <p class="card-header-title">${event.Date}</p>
+                    <p class="card-header-title">${event.EventType.toUpperCase()}</p>
+                </header>
+                <div class="card-content">
+                        <div class="container ${cardColor}">
+                            ${event.Description}
+                            <br>
+                            SPORT: ${event.Sport}
+                        </div>
+                        <footer class="card-footer ${cardColor}">
+                            <button class="button" id="${eventItem}" onclick="deleteEvent(this.id)"> Delete </button>
+                            <button class="button" id="${eventItem}" onclick="editEvent(this, this.id)"> Edit </button>
+                        </footer>
+                </div>
+            </div>
+        `;
 };
 
-const blankCard = () => {
+const blankCard = (date) => {
     return `
-         <div class="card" style="background-color:grey;">
+         <div class="card is-blank" style="background-color:grey;">
            <header class="card-header">
              <p class="card-header-title">No Events</p>   
            </header>
            <div class="card-content">
              <div class="content">You have no events on this day.</div>
                 <footer class="card-footer" style="background-color:grey;">
-                    <p class="card-footer-title">Click "Add event" below to add an event.</p>
+                    <button class="button" onclick='makeNewEvent("${date}")'> Add event on this day</button>
                 </footer>
            </div>
          </div>

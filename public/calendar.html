@@ -81,31 +81,47 @@
          </div>
          <div class="content">
             <h1>Your Calendar</h1>
-            <div id = "labelsBox" class = "column is-one-fifth">
+            <div id = "labelsBox" class = "column">
 
             </div>
-            <div class="buttons">
-                <button id ="addEntry" class="button is-primary is-halfwidth">Add Event</button>
-            </div>
             <div class="column">
+                <div class="buttons">
+                    <button id ="addEntry" class="button is-primary is-halfwidth">Add Event</button>
+                </div>
+            </div>
+            <!-- <div class="column"> -->
+                <button id ="previousMonth" class="button is-primary is-halfwidth" onclick="previousMonth()">
+                        <span class="icon">
+                            <i class="fas fa-arrow-left"></i>
+                        </span>
+                    </button>
                 <h2 id="month"></h2>
+                <div class="buttons">
+                    <button id ="nextMonth" class="button is-primary is-halfwidth" onclick = "nextMonth()">
+                        <span class="icon">
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="column"  style="transform:scale(0.9);">
                 <table class="table is-fullwidth is-striped">
-                    <thead>
-                        <tr>
-                            <th>Sunday</th>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saturday</th>
+                    <thead class="box">
+                        <tr class="columns">
+                            <th class="column">Sunday</th>
+                            <th class="column">Monday</th>
+                            <th class="column">Tuesday</th>
+                            <th class="column">Wednesday</th>
+                            <th class="column">Thursday</th>
+                            <th class="column">Friday</th>
+                            <th class="column">Saturday</th>
                         </tr>
                     </thead>
                     <tbody id = "app">
                     </tbody>
 
                 </table>
-            </div>
+                </div>
+            <!-- </div> -->
          </div>
       </section>
       <div id="modalElement" class=" modal">
