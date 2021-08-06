@@ -3,9 +3,7 @@
    <head>
       <meta charset="UTF-8" />
       <title>Sports Tracker</title>
-     
-
-  <link
+      <link
          rel="shortcut icon"
          href="../images/fav_icon.png"
          type="image/x-icon"
@@ -37,21 +35,14 @@
          to avoid connecting the SDK to running emulators.
          -->
       <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-      <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-
-
-
    </head>
    <body>
-       <section class="hero is-info">
+      <section class="hero is-info">
          <div class="hero-body">
-            <div class="container">
                <h1 class="title">
                   Sports Tracker
                </h1>
                <h5 class="subtitle">Keep track of your runs on the run!</h5>
-            </div>
             <section id="navbar">
                <nav class="navbar" role="navigation" aria-label="main navigation">
                   <div id="navbarBasicExample" class="navbar-menu">
@@ -74,32 +65,60 @@
                         <a class="navbar-item" href="chat.html">
                         Chat
                         </a>
+                        <!-- <a class="navbar-item" href="profile.html">
+                        Profile
+                        </a> -->
                      </div>
                   </div>
+                  <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons slanted">
+                  <a class="button is-success" onclick="googleSignout()">
+                    Log Out
+                  </a>
+                </div>
+              </div>
+            </div>
                </nav>
             </section>
          </div>
-   
-<div>
-
-<header>
-      <h2>RealTime Chat</h2>
-    </header>
-
-    <div id="chat">
-      <!-- messages will display here -->
-      <ul id="messages"></ul>
-
-      <!-- form to send message -->
-      <form id="message-form">
-        <input id="message-input" type="text" />
-        <button id="message-btn" type="submit">Send</button>
-      </form>
-    </div>
-
-</div>
-
-    </body>
-
-    <script src="js/chat.js"></script>
+         <div class="content">
+            <h1>Stats</h1>
+            <h5>
+               Here you can view your stats that you've entered before, or add new ones!
+            </h5>
+            <h1>How to Use?</h1>
+            <h5>
+               Take a look at your stats below or press "Add Work Outs"!
+            </h5>
+            <div class="buttons">
+               <button id ="addWorkOut" class="button is-primary is-halfwidth">Add Stat</button>
+            </div>
+        <div id="app" class="columns is-multiline">
+          <!-- Note cards will render here -->
+        </div>
+         </div>
+      </section>
+                           <div class="content">
+            <div id="modalElement" class=" modal">
+               <div class="modal-background"></div>
+               <div class="modal-card">
+                  <header class="modal-card-head">
+                     <p class="modal-card-title">Add Work Out</p>
+                     <button class="delete cancel" id="cancel"> Add Event</button>
+                  </header>
+                  <input id="statName" class="incorrect input is-primary is-large" type="text" name="statName" placeholder="Name of Work Out...">
+                  <input id="statDescrip" class="incorrect input is-primary is-large" type="text" name="statName" placeholder="Work out Routine">
+                  <input id="statLabel" class="incorrect input is-primary is-large" type="text" placeholder="What does this work out impact the most?" >
+                  <input id ="statDate" type="date" class="incorrect input is-primary is-large"  name="event-date"
+       value="2021-08-01" min="2021-08-01" max="2021-12-31">
+                  <footer class="modal-card-foot">
+                     <button class="button is-success save" id="save">Save changes</button>
+                     <button class="button cancel"id="cancel">Cancel</button>
+                  </footer>
+               </div>
+            </div>
+         </div>
+      <script src="js/workOut.js"></script>
+   </body>
 </html>
