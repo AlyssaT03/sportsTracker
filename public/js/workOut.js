@@ -8,7 +8,7 @@ window.onload = event => {
     if (user) {
       console.log("Logged in as: " + user.displayName);
       googleUser = user;
-      getStats();
+      getWorkOuts();
     } else {
       window.location = "signIn.html"; // If not logged in, navigate back to login page.
     }
@@ -64,10 +64,10 @@ const handleWorkOutSubmit = () => {
     statId = editingCard.id;
 
     const editUpdate = {};
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Name"] = workOutName;
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Description"] = workOutDescrip;
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Label"] = workOutLabel;
-    editUpdate[googleUser.uid + '/Stats/' + statId + "/Date"] = workOutDate;
+    editUpdate[googleUser.uid + '/Workouts/' + statId + "/Name"] = workOutName;
+    editUpdate[googleUser.uid + '/Workouts/' + statId + "/Description"] = workOutDescrip;
+    editUpdate[googleUser.uid + '/Workouts/' + statId + "/Label"] = workOutLabel;
+    editUpdate[googleUser.uid + '/Workouts/' + statId + "/Date"] = workOutDate;
 
     firebase.database().ref().update(editUpdate);
     editing = false;
@@ -91,7 +91,7 @@ const getWorkOuts = userId => {
 
 //Given a list of notes, render them in HTML
 const renderDataAsHtml = (data) => {
-    statData = data.val();
+    workOutData = data.val();
     let statList = []; 
     data.forEach((child) => {
         const childObj = child.val();
@@ -104,52 +104,49 @@ const renderDataAsHtml = (data) => {
         return d1 - d2});
     let cards = "";
     sortedData.forEach((child) => {
-        const stat = child;
-        const statItem = child.id;
-        cards += createCard(stat, statItem);
+        const workOut = child;
+        const workOutItem = child.id;
+        cards += createCard(workOut, workOutItem);
     })
     document.querySelector("#app").innerHTML = cards;
 };
 
-function deleteStat(statItem) {
-    firebase.database().ref(`${googleUser.uid}//${statItem}`).remove();
+function deleteWorkOut(workOutItem) {
+    firebase.database().ref(`users/${googleUser.uid}/Workouts/${workOutItem}`).remove();
 }
 
-function editStat(statCard, statItem){
+function editWorkOut(workOutCard, workOutItem){
     editing = true;
-    statCard.classList.add("is-editing");
+    workOutCard.classList.add("is-editing");
     modal.classList.add("is-active");
 
-    console.log(statItem);
-    console.log(statData[statItem]);
-    document.querySelector('#statName').value = statData[statItem].Name;
-    document.querySelector('#statDescrip').value = statData[statItem].Description;
-    document.querySelector('#statLabel').value = statData[statItem].Label;
-    document.querySelector('#statDate').value = statData[statItem].Date;
+    document.querySelector('#statName').value = workOutData[workOutItem].Name;
+    document.querySelector('#statDescrip').value = workOutData[workOutItem].Description;
+    document.querySelector('#statLabel').value = workOutData[workOutItem].Label;
+    document.querySelector('#statDate').value = workOutData[workOutItem].Date;
 }
 
 // Return a note object converted into an HTML card
-const createCard = (stat, statItem) => {
-    const colors = ["has-background-primary-light", "has-background-link-light", "has-background-info-light", "has-background-success-light", "has-background-warning-light", "has-background-danger-light", "has-background-primary-dark", "has-background-link-dark", "has-background-info-dark", "has-background-success-dark", "has-background-warning-dark", "has-background-danger-dark"]
-    var bk_color = colors[Math.floor(Math.random() * colors.length)]
+const createCard = (workOut, workOutItem) => {
+    cardColor = "has-background-primary-light";
     return `
-         <div class="column is-one-quarter">
-         <div class="card ${bk_color}">
-           <header class="card-header">
-             <p class="card-header-title">${stat.Name}</p>
-             <p class="card-header-title">${stat.Date}</p>
-           
-           </header>
-           <div class="card-content">
-             <div class="content">${stat.Description}</div>
-             <button class="button" id="${statItem}" onclick="deleteStat(this.id)"> Delete </button>
-            <button class="button" id="${statItem}" onclick="editStat(this, this.id)"> Edit </button>
-           <footer class="card-footer ${bk_color}">
-           
-             <p class="card-footer-title">${stat.Label}  </p>
-
-           </footer>
-           </div>
-         </div>
+          <div class="column is-3">
+            <div class="card ${cardColor}">
+                <header class="card-header">
+                    <p class="card-header-title">${workOut.Name}</p>
+                    <p class="card-header-title">${workOut.Date}</p>
+                </header>
+                <div class="card-content">
+                        <div class="container ${cardColor}">
+                            ${workOut.Description}
+                            <br>
+                            SPORT: ${workOut.Label}
+                        </div>
+                        <footer class="card-footer ${cardColor}">
+                            <button class="button card-footer-item" id="${workOutItem}" onclick="deleteWorkOut(this.id)"> Delete </button>
+                            <button class="button card-footer-item" id="${workOutItem}" onclick="editWorkOut(this, this.id)"> Edit </button>
+                        </footer>
+                </div>
+            </div>
        </div> `;
 };

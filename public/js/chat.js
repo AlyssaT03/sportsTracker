@@ -32,6 +32,17 @@ window.onload = event => {
   //fetchChat()
 };
 
+function googleSignout() {
+   firebase.auth().signOut()
+	
+   .then(function() {
+      console.log('Signout Succesfull')
+      window.location = 'signIn.html'
+   }, function(error) {
+      console.log('Signout Failed')  
+   });
+}
+
 const db = () => firebase.database()
 
 document.getElementById("message-form").addEventListener("submit", sendMessage);

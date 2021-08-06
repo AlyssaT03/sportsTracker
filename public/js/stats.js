@@ -1,7 +1,7 @@
 let googleUser;
 var editing = false;
 let statData;
-
+                    
 window.onload = event => {
   // Use this to retain user state between html pages.
   firebase.auth().onAuthStateChanged(function(user) {
@@ -64,10 +64,10 @@ const handleStatsSubmit = () => {
     statId = editingCard.id;
 
     const editUpdate = {};
-    editUpdate['users' + googleUser.uid + '/Stats/' + statId + "/Name"] = statName;
-    editUpdate['users' + googleUser.uid + '/Stats/' + statId + "/Description"] = statDescrip;
-    editUpdate['users' + googleUser.uid + '/Stats/' + statId + "/Label"] = statLabel;
-    editUpdate['users' + googleUser.uid + '/Stats/' + statId + "/Date"] = statDate;
+    editUpdate['users/' + googleUser.uid + '/Stats/' + statId + "/Name"] = statName;
+    editUpdate['users/' + googleUser.uid + '/Stats/' + statId + "/Description"] = statDescrip;
+    editUpdate['users/' + googleUser.uid + '/Stats/' + statId + "/Label"] = statLabel;
+    editUpdate['users/' + googleUser.uid + '/Stats/' + statId + "/Date"] = statDate;
 
     firebase.database().ref().update(editUpdate);
     editing = false;
@@ -130,26 +130,25 @@ function editStat(statCard, statItem){
 
 // Return a note object converted into an HTML card
 const createCard = (stat, statItem) => {
-    const colors = ["has-background-primary-light", "has-background-link-light", "has-background-info-light", "has-background-success-light", "has-background-warning-light", "has-background-danger-light", "has-background-primary-dark", "has-background-link-dark", "has-background-info-dark", "has-background-success-dark", "has-background-warning-dark", "has-background-danger-dark"]
-    var bk_color = colors[Math.floor(Math.random() * colors.length)]
+    cardColor = "has-background-primary-light";
     return `
-         <div class="column is-one-quarter">
-         <div class="card ${bk_color}">
-           <header class="card-header">
-             <p class="card-header-title">${stat.Name}</p>
-             <p class="card-header-title">${stat.Date}</p>
-           
-           </header>
-           <div class="card-content">
-             <div class="content">${stat.Description}</div>
-             <button class="button" id="${statItem}" onclick="deleteStat(this.id)"> Delete </button>
-            <button class="button" id="${statItem}" onclick="editStat(this, this.id)"> Edit </button>
-           <footer class="card-footer ${bk_color}">
-           
-             <p class="card-footer-title">${stat.Label}  </p>
-
-           </footer>
-           </div>
-         </div>
+       <div class="column is-3">
+            <div class="card ${cardColor}">
+                <header class="card-header">
+                    <p class="card-header-title">${stat.Name}</p>
+                    <p class="card-header-title">${stat.Date}</p>
+                </header>
+                <div class="card-content">
+                        <div class="container ${cardColor}">
+                            ${stat.Description}
+                            <br>
+                            SPORT: ${stat.Label}
+                        </div>
+                        <footer class="card-footer ${cardColor}">
+                            <button class="button card-footer-item" id="${statItem}" onclick="deleteStat(this.id)"> Delete </button>
+                            <button class="button card-footer-item" id="${statItem}" onclick="editStat(this, this.id)"> Edit </button>
+                        </footer>
+                </div>
+            </div>
        </div> `;
 };
