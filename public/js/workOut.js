@@ -8,7 +8,7 @@ window.onload = event => {
     if (user) {
       console.log("Logged in as: " + user.displayName);
       googleUser = user;
-      getStats();
+      getWorkOuts();
     } else {
       window.location = "signIn.html"; // If not logged in, navigate back to login page.
     }
