@@ -158,8 +158,8 @@ const createCard = (event, eventItem) => {
                             SPORT: ${event.Sport}
                         </div>
                         <footer class="card-footer ${cardColor}">
-                            <button class="button" id="${eventItem}" onclick="deleteEvent(this.id)"> Delete </button>
-                            <button class="button" id="${eventItem}" onclick="editEvent(this, this.id)"> Edit </button>
+                            <button class="button card-footer-item" id="${eventItem}" onclick="deleteEvent(this.id)"> Delete </button>
+                            <button class="button card-footer-item" id="${eventItem}" onclick="editEvent(this, this.id)"> Edit </button>
                         </footer>
                 </div>
             </div>
