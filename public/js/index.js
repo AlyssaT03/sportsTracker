@@ -144,24 +144,18 @@ const createCard = (event, eventItem) => {
     }
 
     return `
-        <div class="column">
+        <div class="column is-3">
             <div class="card ${cardColor}">
                 <header class="card-header">
                     <p class="card-header-title">${event.Name}</p>
                     <p class="card-header-title">${event.Date}</p>
-                    <button class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </button>
+                    <p class="card-header-title">${event.EventType.toUpperCase()}</p>
                 </header>
                 <div class="card-content">
-                        <div class="content">
+                        <div class="container ${cardColor}">
                             ${event.Description}
                             <br>
                             SPORT: ${event.Sport}
-                            <br>
-                            EVENT: ${event.EventType}
                         </div>
                         <footer class="card-footer ${cardColor}">
                             <button class="button" id="${eventItem}" onclick="deleteEvent(this.id)"> Delete </button>
